@@ -6,11 +6,12 @@ Usage
 -----
 
 ```cl
+(wan (make-instance '<safebooru>) :tags "inubashiri_momiji")
 (display-image (wan (make-instance '<safebooru>) :tags "inubashiri_momiji"))
 ```
 
-Add to .emacs if you wish to enable displaying images in the SLIME REPL
------------------------------------------------------------------------
+Add to .emacs to display images in the SLIME REPL
+-------------------------------------------------
 
 ```cl
 ;---------------------------
