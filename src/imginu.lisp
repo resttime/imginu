@@ -13,15 +13,23 @@
 	   :display-image))
 (in-package :imginu)
 
-(defclass <booru> () ())
+(defclass <booru> ()
+  ((valid-attribs :accessor valid-attribs)
+   (raw-api :accessor raw-api)))
 
 (defclass <gelbooru> (<booru>)
   ((api-url :initform "http://gelbooru.com/index.php?page=dapi&s=post&q=index"
-	    :accessor api-url)
-   (raw-api :accessor raw-api)))
+	    :accessor api-url)))
 
 (defclass <safebooru> (<gelbooru>)
   ((api-url :initform "http://safebooru.org/index.php?page=dapi&s=post&q=index")))
+
+(defmethod initialize-instance :after ((this <safebooru>) &key)
+  (fetch this :limit 1)
+  (let ((post-attribs (cadr (first (raw-posts this)))))
+    (setf (valid-attribs this)
+	  (loop for (a b) in post-attribs
+	     collect a))))
 
 (defmethod raw-posts ((this <safebooru>))
   (xmlrep-children (raw-api this)))
@@ -42,14 +50,15 @@
 					   ("cid" . ,(write-to-string cid))
 					   ("id" . ,(write-to-string id)))))))
 
-(defmethod wan ((this <safebooru>) &key (tags "") (out :b))
+(defmethod wan ((this <safebooru>) &key (tags "") (output :b))
   "Fetches a random image."
   (fetch this :tags tags)
-  (let ((image (http-request (raw-value "preview_url"
-					(nth (random (length (raw-posts this)))
+  (let ((image (http-request (raw-value "sample_url"
+					(nth  (random (length (raw-posts this)))
 					     (raw-posts this))))))
-    (ecase out
+    (ecase output
       ((:w :web) (convert-for-web image))
+      ((:b64 :base64) (usb8-array-to-base64-string image))
       ((:b :binary) image))))
 
 (defun display-image (image)

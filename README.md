@@ -1,6 +1,6 @@
 # imginu
 
-**imginu** is a *Common Lisp* library that will fetch images from booru imageboards for you.
+**imginu** interacts with booru imageboards. In addition, it will be the ultimate solution to your booru needs with speed and simplicity in mind. Isn't that awesome?
 
 Usage
 -----

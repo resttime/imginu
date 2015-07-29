@@ -1,5 +1,9 @@
 (defsystem imginu
     :description "Interacts with the various booru type imageboards."
-    :depends-on (drakma xmls cl-base64)
+    :depends-on (uiop drakma xmls cl-base64)
     :serial t
-    :components ((:file "imginu")))
+    :components
+    ((:module "src"
+	      :components
+	      ((:file "imginu")
+	       (:file "ui")))))
