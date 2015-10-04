@@ -6,8 +6,8 @@ Usage
 -----
 
 ```cl
-(wan (make-instance '<safebooru>) :tags "inubashiri_momiji")
-(display-image (wan (make-instance '<safebooru>) :tags "inubashiri_momiji"))
+(wan (make-instance 'safebooru) :tags "inubashiri_momiji")
+(display-image (wan (make-instance 'safebooru) :tags "inubashiri_momiji"))
 ```
 
 Add to .emacs to display images in the SLIME REPL
