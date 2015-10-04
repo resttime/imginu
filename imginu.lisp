@@ -1,8 +1,7 @@
 (in-package #:imginu)
 
 (defclass booru ()
-  ((post-attribs :accessor post-attribs)
-   (raw-api :accessor raw-api)))
+  ((raw-api :accessor raw-api)))
 
 (defclass gelbooru (booru)
   ((api-url :initform "http://gelbooru.com/index.php?page=dapi&s=post&q=index"
