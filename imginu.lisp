@@ -3,12 +3,14 @@
 (defclass booru ()
   ((raw-api :accessor raw-api)))
 
-(defclass gelbooru (booru)
-  ((api-url :initform "http://gelbooru.com/index.php?page=dapi&s=post&q=index"
-	    :reader api-url)))
-
 (defclass safebooru (gelbooru)
   ((api-url :initform "http://safebooru.org/index.php?page=dapi&s=post&q=index")))
+
+(defclass query ()
+  ((tags  :initargs :tags)
+   (page  :initargs :page)
+   (limit :initargs :limit)
+   (id    :initargs :id)))
 
 (defmethod raw-posts ((booru safebooru))
   (xmlrep-children (raw-api booru)))
